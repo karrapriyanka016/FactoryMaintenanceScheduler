@@ -1,0 +1,3 @@
+id,name,department,usageHours,installationDate,status
+M001,CNC-01,Production,1250,2025-01-10,OPERATIONAL
+M002,Press-02,Assembly,850,2025-03-15,OPERATIONAL

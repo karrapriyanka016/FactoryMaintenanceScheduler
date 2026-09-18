@@ -1,111 +1,100 @@
 # Factory Maintenance Scheduler
 
-## Project Overview
+A command-line Java application for managing factory machines, maintenance records, reported faults, maintenance priorities, and maintenance schedules.
 
-Factory Maintenance Scheduler is a Java-based command-line application designed to help factories organize machine maintenance, record machine issues, and prioritize maintenance tasks.
+## Problem
+Factories may operate many machines with different usage levels and maintenance histories. A simple record system can make it difficult to decide which machine should be serviced first. This project provides a centralized CLI system that stores machine information, records faults and maintenance, calculates a maintenance priority score, and generates reports.
 
-The system uses machine usage, issue severity, and previous maintenance information to calculate a maintenance priority score. It also provides preventive maintenance plans and identifies machines that are due for maintenance.
+## Features
+- Add and view machines
+- Record machine faults/issues
+- Record completed maintenance
+- Calculate maintenance priority using severity, usage hours, and days since last maintenance
+- Generate a prioritized maintenance queue
+- View factory summary reports
+- Persistent CSV storage
+- Input validation and error handling
 
-## Objectives
+## Technology
+- Java 17+
+- Maven
+- Object-Oriented Programming
+- Java Collections
+- File I/O with CSV files
+- Command-line interface
 
-- Manage factory machine information.
-- Record and track machine issues.
-- Maintain maintenance history.
-- Calculate maintenance priority based on multiple factors.
-- Create preventive maintenance schedules.
-- Identify machines that are due or nearly due for maintenance.
-- Generate maintenance summary reports.
-- Store data using CSV files.
+## Requirements
+- JDK 17 or newer
+- Maven 3.8+ (recommended)
 
-## Main Features
+## Run
+From the project root:
 
-### 1. Machine Management
-- Add and manage machine details.
-- Track machine status and usage hours.
-- View available machine information.
+```bash
+mvn clean package
+java -cp target/classes Main
+```
 
-### 2. Issue Reporting
-- Record faults and problems reported for machines.
-- Assign severity levels to reported issues.
-- Track issue information for maintenance planning.
+If Maven is unavailable, compile directly:
 
-### 3. Maintenance Records
-- Store previous maintenance activities.
-- Record maintenance dates and descriptions.
-- Use maintenance history while planning future maintenance.
+```bash
+javac -d out $(find src/main/java -name "*.java")
+java -cp out Main
+```
 
-### 4. Maintenance Priority Calculation
-The system calculates a priority score using factors such as:
+On Windows PowerShell, an alternative is:
 
-- Issue severity
-- Machine usage hours
-- Number of days since the last maintenance
+```powershell
+Get-ChildItem -Recurse src/main/java -Filter *.java | ForEach-Object { $_.FullName } | Set-Content sources.txt
+javac -d out @sources.txt
+java -cp out Main
+```
 
-The calculated score helps identify machines that require earlier attention.
+## Test
+Run:
 
-### 5. Preventive Maintenance Planning
-- Define maintenance intervals based on machine usage.
-- Set warning windows for upcoming maintenance.
-- Display maintenance status as:
-  - `DUE NOW`
-  - `DUE SOON`
-  - `OK`
+```bash
+mvn test
+```
 
-### 6. Maintenance Reports
-The application generates summary information about:
+The project also contains a lightweight Java test runner under `src/test/java/FactoryMaintenanceTest.java`.
 
-- Total machines
-- Machine status
-- Reported issues
-- Maintenance activities
-- Maintenance priorities
+## Data
+Runtime CSV files are created in the `data/` directory:
+- `machines.csv`
+- `issues.csv`
+- `maintenance.csv`
 
-## Technologies Used
+## Suggested demo flow
+1. Add two or three machines.
+2. Record a high-severity issue for one machine.
+3. Record maintenance history for another machine.
+4. Open the maintenance priority queue.
+5. Generate the factory report.
+6. Explain how the priority score changes with severity, usage, and maintenance age.
 
-- **Java 17**
-- **Maven**
-- **JUnit 5**
-- **CSV File Storage**
-- **Object-Oriented Programming**
-
-## Project Structure
+## Project structure
 
 ```text
-FactoryMaintenanceScheduler
-│
+FactoryMaintenanceScheduler/
+├── pom.xml
 ├── README.md
 ├── statement.md
-├── pom.xml
-│
-├── data
-│   ├── machines.csv
-│   ├── issues.csv
-│   └── maintenance.csv
-│
-└── src
-    ├── main
-    │   └── java
-    │       ├── Main.java
-    │       │
-    │       ├── model
-    │       │   ├── Machine.java
-    │       │   ├── MachineStatus.java
-    │       │   ├── IssueReport.java
-    │       │   ├── MaintenanceRecord.java
-    │       │   ├── PriorityItem.java
-    │       │   └── MaintenancePlan.java
-    │       │
-    │       ├── service
-    │       │   ├── MachineService.java
-    │       │   ├── MaintenanceService.java
-    │       │   ├── MaintenancePriorityCalculator.java
-    │       │   ├── ReportService.java
-    │       │   └── MaintenancePlanService.java
-    │       │
-    │       └── util
-    │           ├── InputValidator.java
-    │           └── FileManager.java
-    │
-    └── test
-        └── java
-            └── FactoryMaintenanceTest.java
+├── src/
+│   ├── main/java/
+│   │   ├── Main.java
+│   │   ├── model/
+│   │   ├── service/
+│   │   └── util/
+│   └── test/java/
+└── data/
+```
+
+## Originality note
+Before submission, customize the sample data, wording, screenshots, and at least some implementation/design decisions so that the final submission reflects your own understanding and work.
+
+## Design choice
+The project uses a rule-based priority score rather than a black-box prediction model. This keeps the decision process explainable: fault severity, machine usage, and time since the last maintenance record each contribute to the score. Preventive-maintenance plans add a second, usage-based check for machines that are approaching a service interval.
+
+## Personalization checklist
+Before submission, replace the sample machine names/data with a small dataset you understand, capture your own terminal screenshots, and add one or two design choices you can explain in your viva (for example, changing the priority weights or adding a technician field).
