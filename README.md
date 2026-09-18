@@ -65,14 +65,6 @@ Runtime CSV files are created in the `data/` directory:
 - `issues.csv`
 - `maintenance.csv`
 
-## Suggested demo flow
-1. Add two or three machines.
-2. Record a high-severity issue for one machine.
-3. Record maintenance history for another machine.
-4. Open the maintenance priority queue.
-5. Generate the factory report.
-6. Explain how the priority score changes with severity, usage, and maintenance age.
-
 ## Project structure
 
 ```text
@@ -90,11 +82,3 @@ FactoryMaintenanceScheduler/
 └── data/
 ```
 
-## Originality note
-Before submission, customize the sample data, wording, screenshots, and at least some implementation/design decisions so that the final submission reflects your own understanding and work.
-
-## Design choice
-The project uses a rule-based priority score rather than a black-box prediction model. This keeps the decision process explainable: fault severity, machine usage, and time since the last maintenance record each contribute to the score. Preventive-maintenance plans add a second, usage-based check for machines that are approaching a service interval.
-
-## Personalization checklist
-Before submission, replace the sample machine names/data with a small dataset you understand, capture your own terminal screenshots, and add one or two design choices you can explain in your viva (for example, changing the priority weights or adding a technician field).
